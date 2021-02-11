@@ -4,7 +4,7 @@
 // const MongoClient = mongodb.MongoClient
 // const ObjectID = mongodb.ObjectID
 
-const {MongoClient, ObjectID } = require('mongodb')
+const { MongoClient, ObjectID } = require('mongodb')
 
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
@@ -15,6 +15,36 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
   }
 
   const db = client.db(databaseName)
+
+  db.collection('tasks').findOne({ _id: new ObjectID("60232a92380fc3a8568fdda0")}, (error, task) => {
+    if (error) {
+      return console.log('thats not even a thing')
+    }
+
+    console.log(task)
+  })
+
+  db.collection('tasks').find({ completed: false }).toArray((error, task) => {
+    console.log(task)
+  })
+
+
+  // db.collection('users').findOne({ _id: new ObjectID("60231f6b778e1586cdcb58a5")}, (error, user) => {
+  //   if (error) {
+  //     return console.log('Unable to fetch')
+  //   }
+
+  //   console.log(user)
+  // })
+
+  // db.collection('users').find({ age: 37 }).toArray((error, users) => {
+  //   console.log(users)
+  // })
+
+  // db.collection('users').find({ age: 37 }).count((error, count) => {
+  //   console.log(count)
+  // })
+
 
   // db.collection('users').insertOne({
   //   name: 'Jonsey',
