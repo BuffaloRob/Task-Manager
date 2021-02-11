@@ -16,17 +16,42 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
 
   const db = client.db(databaseName)
 
-  db.collection('tasks').findOne({ _id: new ObjectID("60232a92380fc3a8568fdda0")}, (error, task) => {
-    if (error) {
-      return console.log('thats not even a thing')
+  const completeAllTasks = db.collection('tasks').updateMany({
+    completed: false
+  }, {
+    $set: {
+      completed: true
     }
-
-    console.log(task)
+  }).then((result) => {
+    console.log(result)
+  }).catch((error) => {
+    console.log(error)
   })
 
-  db.collection('tasks').find({ completed: false }).toArray((error, task) => {
-    console.log(task)
-  })
+  // more test code 
+  // const updatePromise = db.collection('users').updateOne({
+  //   _id: new ObjectID("60252f5927fc532a7de8989f")
+  // }, {
+  //   $inc: {
+  //     age: 1
+  //   }
+  // }).then((result) => {
+  //   console.log(result)
+  // }).catch((error) => {
+  //   console.log(error)
+  // })
+
+  // db.collection('tasks').findOne({ _id: new ObjectID("60232a92380fc3a8568fdda0")}, (error, task) => {
+  //   if (error) {
+  //     return console.log('thats not even a thing')
+  //   }
+
+  //   console.log(task)
+  // })
+
+  // db.collection('tasks').find({ completed: false }).toArray((error, task) => {
+  //   console.log(task)
+  // })
 
 
   // db.collection('users').findOne({ _id: new ObjectID("60231f6b778e1586cdcb58a5")}, (error, user) => {
