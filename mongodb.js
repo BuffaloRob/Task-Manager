@@ -16,17 +16,33 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
 
   const db = client.db(databaseName)
 
-  const completeAllTasks = db.collection('tasks').updateMany({
-    completed: false
-  }, {
-    $set: {
-      completed: true
-    }
-  }).then((result) => {
-    console.log(result)
-  }).catch((error) => {
-    console.log(error)
-  })
+  // db.collection('users').deleteMany({
+  //   age: 37
+  // }).then((result) => {
+  //   console.log(result)
+  // }).catch((error) => {
+  //   console.log(error)
+  // })
+
+  // db.collection('tasks').deleteOne({
+  //   description: 'walk dog'
+  // }).then((result) => {
+  //   console.log(result)
+  // }).catch((error) => {
+  //   console.log(error)
+  // })
+
+  // const completeAllTasks = db.collection('tasks').updateMany({
+  //   completed: false
+  // }, {
+  //   $set: {
+  //     completed: true
+  //   }
+  // }).then((result) => {
+  //   console.log(result)
+  // }).catch((error) => {
+  //   console.log(error)
+  // })
 
   // more test code 
   // const updatePromise = db.collection('users').updateOne({
