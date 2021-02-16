@@ -13,8 +13,9 @@ const Task = require('../src/models/task')
 // })
 
 const deleteTaskandCount = async (id) => {
-  await Task.findByIdAndDelete(id)
-  return await Task.countDocuments({ completed: false })
+  const task = await Task.findByIdAndDelete(id)
+  const count = await Task.countDocuments({ completed: false })
+  return count
 }
 
 deleteTaskandCount('602ac8e509a16ae5e72d6323').then(count => {
