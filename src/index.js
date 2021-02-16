@@ -30,6 +30,7 @@ app.get('/users', async (req, res) => {
 
 app.get('/users/:id', async (req, res) => {
   const _id = req.params.id
+
   try {
     const user = await User.findById(_id)
     if (!user) {
@@ -44,6 +45,14 @@ app.get('/users/:id', async (req, res) => {
 
 app.patch('/users/:id', async (req, res) => {
   const _id = req.params.id
+  const updates = Object.keys(req.body)
+  const allowedUpdates = ['name', 'email', 'password', 'age']
+  const isValidUpdate = updates.every((update) => allowedUpdates.includes(update))
+
+  if (!isValidUpdate) {
+    return res.status(400).send({ error: 'Invalid Updates'})
+  }
+
   try {
     const user = await User.findByIdAndUpdate(_id, req.body, { new: true, runValidators: true })
     
